@@ -14,7 +14,6 @@ spec:
       labels:
         {{- include "hello-world.selectorLabels" . | nindent 8 }}
     spec:
-      restartPolicy: Never
       serviceAccountName: {{ include "hello-world.serviceAccountName" . }}
       containers:
         - name: {{ .Chart.Name }}
