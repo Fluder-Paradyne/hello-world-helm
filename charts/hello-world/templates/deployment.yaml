@@ -25,16 +25,16 @@ spec:
             - name: http
               containerPort: 80
               protocol: TCP
-          livenessProbe:
-            httpGet:
-              path: /
-              port: http
-            failureThreshold: 1
-          readinessProbe:
-            httpGet:
-              path: /
-              port: http
-            failureThreshold: 1
+          # livenessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #   failureThreshold: 1
+          # readinessProbe:
+          #   httpGet:
+          #     path: /
+          #     port: http
+          #   failureThreshold: 1
           resources:
             limits:
               ephemeral-storage: "1Gi"
