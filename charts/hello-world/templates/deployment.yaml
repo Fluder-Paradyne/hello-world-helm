@@ -35,3 +35,11 @@ spec:
             failureThreshold: 1
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+        - name: storage-consumer
+          image: busybox
+          command: ["/bin/sh", "-c", "trap 'exit 0' SIGTERM; while true; do sleep 1; done"]
+          resources:
+            limits:
+              ephemeral-storage: "2Gi"
+            requests:
+              ephemeral-storage: "1Gi"
