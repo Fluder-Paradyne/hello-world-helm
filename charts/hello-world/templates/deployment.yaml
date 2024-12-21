@@ -19,24 +19,19 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          command: ["/bin/sh"]
-          args: ["-c", "while true; do dd if=/dev/zero of=/tmp/dummy bs=1M count=1024; sleep 2; done"]
           ports:
             - name: http
               containerPort: 80
               protocol: TCP
-          # livenessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          #   failureThreshold: 1
-          # readinessProbe:
-          #   httpGet:
-          #     path: /
-          #     port: http
-          #   failureThreshold: 1
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            failureThreshold: 1
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            failureThreshold: 1
           resources:
-            limits:
-              ephemeral-storage: "1Gi"
-            requests:
-              ephemeral-storage: "1Gi"
+            {{- toYaml .Values.resources | nindent 12 }}
